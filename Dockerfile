@@ -17,6 +17,8 @@ RUN \
 	chmod -R 777 /var/www/html /var/log/nginx /var/lib/nginx && \
 	chmod -R 755 /hooks /init /etc/ssl/private && \
 	chmod 777 /etc/passwd /etc/group /etc && \
+	touch /var/log/nginx/access.log /var/log/nginx/error.log && \
+	chmod -R 777 /var/log/nginx/ && \
 	/usr/bin/pyvenv /python3-virtualenv/ && \
 	/python3-virtualenv/bin/python --version && \
 	/python3-virtualenv/bin/pip --version && \
