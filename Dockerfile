@@ -13,8 +13,10 @@ RUN \
 	apt-get clean -q -y && \
 	rm -rf /var/lib/apt/lists/* && \
 	rm -rf /var/www/html && \
-	mkdir -p /var/www/html && \
-	chmod -R 777 /var/www/html /var/log/nginx /var/lib/nginx && \
+	rm -rf /var/www && \
+	mkdir -p /var/www && \
+	mkdir -p /var/www/public && \
+	chmod -R 777 /var/www /var/log/nginx /var/lib/nginx && \
 	chmod -R 755 /hooks /init /etc/ssl/private && \
 	chmod 777 /etc/passwd /etc/group /etc && \
 	touch /var/log/nginx/access.log /var/log/nginx/error.log && \
@@ -32,10 +34,10 @@ RUN \
 	sed -i -e 's|# listen 443|listen 8443|' /etc/nginx/sites-enabled/default && \
 	sed -i -e 's|# listen \[::\]:443|listen \[::\]:8443|' /etc/nginx/sites-enabled/default && \
 	sed -i -e 's|# include snippets/snakeoil.conf;|include snippets/snakeoil.conf;|' /etc/nginx/sites-enabled/default && \
+	sed -i -e 's|root /var/www/html|root /var/www/public|' /etc/nginx/sites-enabled/default && \
 	perl -0 -p -i -e 's/location \/ \{.*?\}/location \/ \{ passenger_enabled on; passenger_app_type wsgi; \}/s' /etc/nginx/sites-enabled/default && \
 	echo "passenger_python /python3-virtualenv/bin/python3;" >> /etc/nginx/passenger.conf && \
 	echo "passenger_user_switching off;" >> /etc/nginx/passenger.conf && \
 	/usr/bin/passenger-config validate-install  --auto --no-colors
 EXPOSE 8080 8443
-VOLUME /var/www/html
-WORKDIR /var/www/html
+WORKDIR /var/www
