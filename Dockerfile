@@ -33,7 +33,6 @@ RUN \
 	sed -i -e 's|listen \[::\]:80|listen \[::\]:8080|' /etc/nginx/sites-enabled/default && \
 	sed -i -e 's|# listen 443|listen 8443|' /etc/nginx/sites-enabled/default && \
 	sed -i -e 's|# listen \[::\]:443|listen \[::\]:8443|' /etc/nginx/sites-enabled/default && \
-	sed -i -e 's|# include snippets/snakeoil.conf;|include snippets/snakeoil.conf;|' /etc/nginx/sites-enabled/default && \
 	sed -i -e 's|root /var/www/html|root /var/www/public|' /etc/nginx/sites-enabled/default && \
 	perl -0 -p -i -e 's/location \/ \{.*?\}/location \/ \{ passenger_enabled on; passenger_app_type wsgi; \}/s' /etc/nginx/sites-enabled/default && \
 	echo "passenger_python /python3-virtualenv/bin/python3;" >> /etc/nginx/passenger.conf && \
