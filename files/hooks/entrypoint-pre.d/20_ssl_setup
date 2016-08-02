@@ -35,12 +35,10 @@ elif [[ ! -z "$SSL_KEY" ]] && [[ ! -z "$SSL_CERT" ]]; then
 	#Passed all tests, we'll configure SSL	.
 	else
 		echo "Enabling SSL."
-		cp /etc/nginx/sites-enabled/site.conf /tmp
-		sed -i -e 's/# listen 443/listen 8443/g' /tmp/site.conf
-		sed -i -e 's/# listen \[::\]:443/listen \[::\]:8443/g' /tmp/site.conf
-		sed -i -e '/server_name _;/a \        ssl\_certificate\_key \/ssl\/ssl\.key\;' /tmp/site.conf
-		sed -i -e '/server_name _;/a \        ssl\_certificate \/ssl\/ssl\.crt\;' /tmp/site.conf
-		cat /tmp/site.conf > /etc/nginx/sites-enabled/site.conf
+		sed -i -e 's/# listen 443/listen 8443/g' /etc/nginx/sites-enabled/default
+		sed -i -e 's/# listen \[::\]:443/listen \[::\]:8443/g' /etc/nginx/sites-enabled/default
+		sed -i -e '/server_name _;/a \        ssl\_certificate\_key \/ssl\/ssl\.key\;' /etc/nginx/sites-enabled/default
+		sed -i -e '/server_name _;/a \        ssl\_certificate \/ssl\/ssl\.crt\;' /etc/nginx/sites-enabled/default
 	fi
 
 #Otherwise we will fail startup.
