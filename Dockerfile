@@ -30,10 +30,10 @@ RUN \
 		pip install --no-cache-dir --upgrade pip && \
 		pip install --no-cache-dir mysqlclient \
 	" && \
-	mkdir -p /etc/nginx/main.d/ && \
 	echo "" >> /etc/nginx/nginx.conf && \
-	echo "include /etc/nginx/main.d/*.conf;" >> /etc/nginx/nginx.conf && \
 	echo "daemon off;" >> /etc/nginx/nginx.conf && \
+	mkdir -p /etc/nginx/main.d/ && \
+	sed -i -e 's|http {|include /etc/nginx/main.d/*;\nhttp {|' /etc/nginx/nginx.conf && \
 	sed -i -r -e '/^user www-data;/d' /etc/nginx/nginx.conf && \
 	sed -i -e '/sendfile on;/a\        client_max_body_size 0\;' /etc/nginx/nginx.conf && \
 	sed -i -e 's|# include /etc/nginx/passenger|include /etc/nginx/passenger|' /etc/nginx/nginx.conf && \
