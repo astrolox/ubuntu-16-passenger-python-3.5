@@ -37,8 +37,8 @@ elif [[ ! -z "$SSL_KEY" ]] && [[ ! -z "$SSL_CERT" ]]; then
     echo "Enabling SSL."
     sed -i -e 's/# listen 443/listen 8443/g' /etc/nginx/sites-enabled/default
     sed -i -e 's/# listen \[::\]:443/listen \[::\]:8443/g' /etc/nginx/sites-enabled/default
-    sed -i -e '/server_name _;/a \        ssl\_certificate\_key \/ssl\/ssl\.key\;' /etc/nginx/sites-enabled/default
-    sed -i -e '/server_name _;/a \        ssl\_certificate \/ssl\/ssl\.crt\;' /etc/nginx/sites-enabled/default
+    sed -i -e "/server_name _;/a \        ssl\_certificate\_key ${SSL_KEY}\;" /etc/nginx/sites-enabled/default
+    sed -i -e "/server_name _;/a \        ssl\_certificate ${SSL_CERT}\;" /etc/nginx/sites-enabled/default
   fi
 
 #Otherwise we will fail startup.
