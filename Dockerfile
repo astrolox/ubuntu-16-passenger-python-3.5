@@ -10,6 +10,7 @@ RUN \
 	apt-get update -q && \
 	apt-get install -q -o Dpkg::Options::=--force-confdef -y python3-venv python3-virtualenv python3-all python3-setuptools python3-pip nginx-extras passenger ssl-cert apache2-utils && \
 	apt-get install -q -o Dpkg::Options::=--force-confdef -y sqlite3 libmysqlclient-dev mysql-common && \
+	apt-get install -q -o Dpkg::Options::=--force-confdef -y build-essential libssl-dev libffi-dev python-dev && \
 	apt-get autoremove -q -y && \
 	apt-get clean -q -y && \
 	rm -rf /var/lib/apt/lists/* && \
