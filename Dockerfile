@@ -2,6 +2,7 @@ FROM 1and1internet/ubuntu-16
 MAINTAINER brian.wojtczak@1and1.co.uk
 ARG DEBIAN_FRONTEND=noninteractive
 COPY files /
+ENV PASSENGER_APP_ENV=production
 RUN \
 	apt-get update -q && \
 	apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7 && \
@@ -45,7 +46,7 @@ RUN \
 	sed -i -e 's|# listen 443|listen 8443|' /etc/nginx/sites-enabled/default && \
 	sed -i -e 's|# listen \[::\]:443|listen \[::\]:8443|' /etc/nginx/sites-enabled/default && \
 	sed -i -e 's|root /var/www/html|root /var/www/public|' /etc/nginx/sites-enabled/default && \
-	perl -0 -p -i -e 's/location \/ \{.*?\}/location \/ \{ passenger_enabled on; passenger_app_type wsgi; passenger_app_env $ENV{"PASSENGER_APP_ENV"}; \}/s' /etc/nginx/sites-enabled/default && \
+	perl -0 -p -i -e 's/location \/ \{.*?\}/location \/ \{ passenger_enabled on; passenger_app_type wsgi; passenger_app_env production; \}/s' /etc/nginx/sites-enabled/default && \
 	chmod -R 777 /etc/nginx/sites-enabled && \
 	echo "passenger_python /python3-virtualenv/bin/python3;" >> /etc/nginx/passenger.conf && \
 	echo "passenger_user_switching off;" >> /etc/nginx/passenger.conf && \

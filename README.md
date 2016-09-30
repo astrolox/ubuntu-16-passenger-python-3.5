@@ -22,3 +22,4 @@ All configuration is via environment variables.
 
 * ``SSL_CERT`` - Path to an x509 PEM encoded digitgial certificate
 * ``SSL_KEY`` - Path to the x509 PEM encoded key for the digital certificate
+* ``PASSENGER_APP_ENV`` - Value to use for the [passenger_app_env](https://www.phusionpassenger.com/library/config/nginx/reference/#passenger_app_env) directive; either production or development

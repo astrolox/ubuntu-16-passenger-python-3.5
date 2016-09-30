@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+set -e
+
+perl -0 -p -i -e 's/passenger_app_env.*?;/passenger_app_env $ENV{"PASSENGER_APP_ENV"};/s' /etc/nginx/sites-enabled/default 
